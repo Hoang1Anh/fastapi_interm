@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    restart: always
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql  #named volumes
+    ports:
+    - "3306:3306"
+
+  services:
+    build: .
+    restart: always
+    depends_on:
+      - db  
+    env_file: .env
+    volumes:
+      - .:/app #ket noi thu muc hien tai chua dockercompose vs app tren container
+      - ./uploads:/app/uploads #ket noi uploads tren may chu vs uploads tren container #bind mounts
+    ports:
+      - "8000:8000"
+    #command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload 
+    #docker, docker compose, dockerfile yêu cầu lưu (ctrl s) thì code trong docker sẽ tự thay đởi và update
+
+  alembic:
+    build: .
+    command: alembic alembic revision --autogenerate -m "update" && alembic upgrade head   
+    depends_on:
+      - db
+    env_file: .env
+
+
+volumes:
+  mysql_data:
+  
