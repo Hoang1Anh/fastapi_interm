@@ -4,4 +4,5 @@ sqlalchemy
 pymysql
 python-multipart
 python-dotenv
-cryptography
+cryptography 
+SQLModel

@@ -26,5 +26,15 @@ services:
     ports:
       - "8989:8000"
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
 volumes:
   mysql_data:

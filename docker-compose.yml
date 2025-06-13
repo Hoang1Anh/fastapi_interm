@@ -23,8 +23,22 @@ services:
     env_file: .env
     volumes:
       - ./uploaded_files:/app/uploaded_files
+      - ./app:/app/app   # <-- mount your code for hot reload
+      - ./requirements.txt:/app/requirements.txt  # optional: mount requirements if needed
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload  # <-- add reload here
     ports:
       - "8989:8000"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
 
 volumes:
   mysql_data:

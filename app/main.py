@@ -1,33 +1,22 @@
-import os
-from fastapi import FastAPI, UploadFile, File, Depends, HTTPException
-from sqlalchemy.orm import Session
-from . import database, models, crud
-
-models.Base.metadata.create_all(bind=database.engine)
+from fastapi import FastAPI
+from app.database import create_db_and_tables
+from app.routers import (
+    HocSinh,
+    LoaiNguoiDung,
+    CoSo,
+    TrangThai,
+    LichSuChamSoc
+)
 
 app = FastAPI()
 
-UPLOAD_DIR = "uploaded_files"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-@app.post("/upload/")
-async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db)):
-    content = await file.read()
-    file_hash = crud.calculate_hash(content)
-
-    if db.query(models.AudioFile).filter_by(hash=file_hash).first():
-        raise HTTPException(status_code=400, detail="File đã tồn tại!")
-
-    filepath = os.path.join(UPLOAD_DIR, file.filename)
-    with open(filepath, "wb") as f:
-        f.write(content)
-
-    file_entry = crud.save_file_info(db, file.filename, content, file.content_type)
-    return {"message": "Upload thành công", "file_id": file_entry.id}
+# Include tất cả các routers
+app.include_router(HocSinh.router, prefix="/api", tags=["HocSinh"])
+app.include_router(LoaiNguoiDung.router, prefix="/api", tags=["LoaiNguoiDung"])
+app.include_router(CoSo.router, prefix="/api", tags=["CoSo"])
+app.include_router(TrangThai.router, prefix="/api", tags=["TrangThai"])
+app.include_router(LichSuChamSoc.router, prefix="/api", tags=["LichSuChamSoc"])
