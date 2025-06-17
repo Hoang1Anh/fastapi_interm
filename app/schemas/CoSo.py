@@ -1,9 +1,8 @@
-from sqlmodel import Field
+from sqlmodel import SQLModel, Field
 from typing import Optional
 import uuid as uuid_lib
-from .SchemaChung import SchemaChung
 
-class CoSoBase(SchemaChung):
+class CoSoBase(SQLModel):
     ten_co_so: str = Field(max_length=255)
     dia_chi_co_so: Optional[str] = None
     sdt: Optional[str] = None
@@ -15,7 +14,7 @@ class CoSoCreate(CoSoBase):
 class CoSoRead(CoSoBase):
     id: int
 
-class CoSoUpdate(SchemaChung):
+class CoSoUpdate(SQLModel):
     ten_co_so: Optional[str] = None
     dia_chi_co_so: Optional[str] = None
     sdt: Optional[str] = None

@@ -1,11 +1,11 @@
-from sqlmodel import Field
+from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime
 import uuid as uuid_lib
-from .SchemaChung import SchemaChung
+
 # Schemas cho ThongTinNguoiDung
 
-class ThongTinNguoiDungBase(SchemaChung):
+class ThongTinNguoiDungBase(SQLModel):
     ho_ten: str
     gioi_tinh: Optional[str] = None
     ngay_sinh: Optional[datetime] = None
@@ -24,7 +24,7 @@ class ThongTinNguoiDungRead(ThongTinNguoiDungBase):
     id: int
     uuid: str
 
-class ThongTinNguoiDungUpdate(SchemaChung):
+class ThongTinNguoiDungUpdate(SQLModel):
     ho_ten: Optional[str] = None
     gioi_tinh: Optional[str] = None
     ngay_sinh: Optional[datetime] = None
@@ -38,7 +38,7 @@ class ThongTinNguoiDungUpdate(SchemaChung):
 
 # Schemas cho ThongTinHocSinh
 
-class ThongTinHocSinhBase(SchemaChung):
+class ThongTinHocSinhBase(SQLModel):
     lop: Optional[str] = None
     truong: Optional[str] = None
     ho_ten_ph: Optional[str] = None
@@ -55,7 +55,7 @@ class ThongTinHocSinhRead(ThongTinHocSinhBase):
     id: int
     thong_tin_id: int
 
-class ThongTinHocSinhUpdate(SchemaChung):
+class ThongTinHocSinhUpdate(SQLModel):
     lop: Optional[str] = None
     truong: Optional[str] = None
     ho_ten_ph: Optional[str] = None
@@ -67,12 +67,12 @@ class ThongTinHocSinhUpdate(SchemaChung):
 
 # Schema tổng hợp để insert
 
-class InsertHocSinh(SchemaChung):
+class InsertHocSinh(SQLModel):
     nguoi_dung: ThongTinNguoiDungCreate
     hoc_sinh: ThongTinHocSinhCreate
 
 # Schema để lọc
-class HocSinhFilter(SchemaChung):
+class HocSinhFilter(SQLModel):
     keyword: Optional[str] = None
     cham_soc_tu_ngay: Optional[datetime] = None
     cham_soc_den_ngay: Optional[datetime] = None

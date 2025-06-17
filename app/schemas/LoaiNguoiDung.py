@@ -1,9 +1,8 @@
-from sqlmodel import Field
+from sqlmodel import SQLModel, Field
 from typing import Optional
 import uuid as uuid_lib
-from .SchemaChung import SchemaChung
 
-class LoaiNguoiDungBase(SchemaChung):
+class LoaiNguoiDungBase(SQLModel):
     ten_loai_nguoi_dung: str = Field(max_length=50)
     nhom_nguoi_dung: Optional[str] = Field(default=None, max_length=255)
 
@@ -14,6 +13,6 @@ class LoaiNguoiDungRead(LoaiNguoiDungBase):
     id: int
     uuid: str
 
-class LoaiNguoiDungUpdate(SchemaChung):
+class LoaiNguoiDungUpdate(SQLModel):
     ten_loai_nguoi_dung: Optional[str] = None
     nhom_nguoi_dung: Optional[str] = None

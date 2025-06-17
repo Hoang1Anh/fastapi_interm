@@ -32,3 +32,4 @@ class ThongTinNguoiDung(ModelChung, table=True):
     co_so: Optional["CoSo"] = Relationship(back_populates="thong_tin_nguoi_dung")
     loai_nguoi_dung: Optional["LoaiNguoiDung"] = Relationship(back_populates="thong_tin_nguoi_dung")
     trang_thai: Optional["TrangThai"] = Relationship(back_populates="thong_tin_nguoi_dung")
+    user: Optional["User"] = Relationship(back_populates="thong_tin_nguoi_dung")
