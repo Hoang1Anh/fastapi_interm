@@ -7,33 +7,10 @@ from app.routers import (
     LoaiNguoiDung,
     CoSo,
     TrangThai,
-    LichSuChamSoc
-)
-
-app = FastAPI()
-
-# Đăng ký middleware
-app.add_middleware(LichSuHeThongMiddleware)
-app.add_middleware(TruongChungMiddleware)
-
-# Tạo bảng khi khởi động
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
-
-# Include các routers chính
-from fastapi import FastAPI
-from app.middleware.LichSuHeThong import LichSuHeThongMiddleware
-from app.middleware.TruongChung import TruongChungMiddleware
-from app.database import create_db_and_tables
-from app.routers import (
-    HocSinh,
-    LoaiNguoiDung,
-    CoSo,
-    TrangThai,
     LichSuChamSoc,
     NhomQuyen,
     Quyen,
+    User,
 )
 
 app = FastAPI()
@@ -55,5 +32,6 @@ app.include_router(TrangThai.router, prefix="/api", tags=["TrangThai"])
 app.include_router(LichSuChamSoc.router, prefix="/api", tags=["LichSuChamSoc"])
 app.include_router(NhomQuyen.router, prefix="/api", tags=["NhomQuyen"])
 app.include_router(Quyen.router, prefix="/api", tags=["Quyen"])
+app.include_router(User.router, prefix="/api", tags=["User"])
 
 
