@@ -11,6 +11,8 @@ from app.routers import (
     NhomQuyen,
     Quyen,
     User,
+    Auth,
+
 )
 
 app = FastAPI()
@@ -33,5 +35,7 @@ app.include_router(LichSuChamSoc.router, prefix="/api", tags=["LichSuChamSoc"])
 app.include_router(NhomQuyen.router, prefix="/api", tags=["NhomQuyen"])
 app.include_router(Quyen.router, prefix="/api", tags=["Quyen"])
 app.include_router(User.router, prefix="/api", tags=["User"])
+app.include_router(Auth.router, prefix="/api", tags=["Auth"])
+
 
 

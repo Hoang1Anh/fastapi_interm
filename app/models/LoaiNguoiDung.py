@@ -1,6 +1,7 @@
 from sqlmodel import Field, Relationship
 from typing import Optional , List
 from .ModelChung import ModelChung
+from uuid import uuid4
 
 class LoaiNguoiDung(ModelChung, table=True):
     """
@@ -9,7 +10,7 @@ class LoaiNguoiDung(ModelChung, table=True):
     __tablename__ = 'loai_nguoi_dung'
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    uuid: str = Field(unique=True, index=True)
+    uuid: str = Field(default_factory=lambda: str(uuid4()), nullable=False, index=True)
     ten_loai_nguoi_dung: str = Field(max_length=50, index=True)
     nhom_nguoi_dung: Optional[str] = Field(default=None, max_length=255)
 

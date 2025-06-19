@@ -17,7 +17,7 @@ def create_user(data: UserCreate, db: Session = Depends(get_db)):
         created = crud_user.create_user(db, data)
         return JSONResponse(
             status_code=200,
-            content={"message": "Tạo người dùng thành công", "data": created.dict()}
+            content={"message": "Tạo người dùng thành công", "data": created}
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Lỗi khi tạo người dùng: {str(e)}")

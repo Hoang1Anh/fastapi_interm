@@ -7,7 +7,7 @@ class LoaiNguoiDungBase(SQLModel):
     nhom_nguoi_dung: Optional[str] = Field(default=None, max_length=255)
 
 class LoaiNguoiDungCreate(LoaiNguoiDungBase):
-    uuid: str = Field(default_factory=lambda: str(uuid_lib.uuid4()))
+    pass
 
 class LoaiNguoiDungRead(LoaiNguoiDungBase):
     id: int

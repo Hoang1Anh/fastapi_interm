@@ -2,7 +2,9 @@ fastapi
 uvicorn
 sqlalchemy
 pymysql
-python-multipart
+sqlmodel
 python-dotenv
-cryptography 
-SQLModel
+python-multipart
+cryptography
+passlib[bcrypt]
+python-jose[cryptography]

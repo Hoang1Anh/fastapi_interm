@@ -1,40 +1,7 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel
 from typing import Optional
 from datetime import datetime
-import uuid as uuid_lib
-
-# Schemas cho ThongTinNguoiDung
-
-class ThongTinNguoiDungBase(SQLModel):
-    ho_ten: str
-    gioi_tinh: Optional[str] = None
-    ngay_sinh: Optional[datetime] = None
-    dia_chi: Optional[str] = None
-    sdt: Optional[str] = None
-    email: Optional[str] = None
-    loai_nguoi_dung_id: Optional[int] = None
-    co_so_id: Optional[int] = None
-    trang_thai_id: Optional[int] = None
-    ip_address: Optional[str] = None
-
-class ThongTinNguoiDungCreate(ThongTinNguoiDungBase):
-    uuid: str = Field(default_factory=lambda: str(uuid_lib.uuid4()))
-
-class ThongTinNguoiDungRead(ThongTinNguoiDungBase):
-    id: int
-    uuid: str
-
-class ThongTinNguoiDungUpdate(SQLModel):
-    ho_ten: Optional[str] = None
-    gioi_tinh: Optional[str] = None
-    ngay_sinh: Optional[datetime] = None
-    dia_chi: Optional[str] = None
-    sdt: Optional[str] = None
-    email: Optional[str] = None
-    loai_nguoi_dung_id: Optional[int] = None
-    co_so_id: Optional[int] = None
-    trang_thai_id: Optional[int] = None
-    ip_address: Optional[str] = None
+from app.schemas.ThongTinNguoiDung import ThongTinNguoiDungCreate
 
 # Schemas cho ThongTinHocSinh
 

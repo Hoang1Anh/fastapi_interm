@@ -1,6 +1,5 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
-import uuid as uuid_lib
 
 class CoSoBase(SQLModel):
     ten_co_so: str = Field(max_length=255)
